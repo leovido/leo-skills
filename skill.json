@@ -1,0 +1,26 @@
+{
+  "id": "leo-skills",
+  "name": "Development Skills & Best Practices",
+  "description": "Comprehensive development standards, tooling, and best practices for React and React Native projects. Includes configurations for Biome, Lefthook, GitHub Actions, Docker, and more.",
+  "version": "1.0.0",
+  "author": "Christian Rayleo Vido",
+  "repository": "https://github.com/yourusername/leo-skills",
+  "tags": [
+    "react",
+    "react-native",
+    "expo",
+    "typescript",
+    "jest",
+    "pnpm",
+    "biome",
+    "lefthook",
+    "github-actions",
+    "docker",
+    "domain-driven-design",
+    "best-practices",
+    "ci-cd",
+    "conventional-commits"
+  ],
+  "instructions": "This skill provides comprehensive development standards and best practices for React and React Native projects. Review SKILLS.md for detailed guidelines. Copy template files (.example) to your project and customize as needed. Key areas covered: code quality (Biome), React useEffect best practices, React Native (Expo), Git hooks (Lefthook), CI/CD (GitHub Actions), PR templates, Docker setup, and more."
+}
+
