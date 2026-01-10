@@ -1,3 +1,9 @@
+---
+name: development
+description: Core development standards, patterns, and best practices for React and React Native projects. Use this when users need guidance on code quality (Biome, TypeScript), testing (Jest), project structure (Domain-Driven Design), React best practices (useEffect guidelines), or React Native development with Expo.
+license: MIT - Complete terms in LICENSE.txt
+---
+
 # Development Skills & Best Practices
 
 Core development standards, patterns, and best practices for React and React Native projects.

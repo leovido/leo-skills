@@ -1,3 +1,9 @@
+---
+name: tooling
+description: Package management, project setup, and development tooling standards. Use this when users need guidance on using pnpm for package management, setting up new projects with automated scripts, configuring environment variables with dotenv, or initializing development tooling for React and React Native projects.
+license: MIT - Complete terms in LICENSE.txt
+---
+
 # Tooling Skills & Best Practices
 
 Package management, project setup, and development tooling standards.

@@ -1,3 +1,9 @@
+---
+name: devops
+description: DevOps standards, CI/CD pipelines, and containerization practices. Use this when users need guidance on setting up GitHub Actions workflows, Docker containerization, monitoring with Prometheus and Grafana, or implementing CI/CD pipelines for React and React Native projects.
+license: MIT - Complete terms in LICENSE.txt
+---
+
 # DevOps Skills & Best Practices
 
 DevOps standards, CI/CD pipelines, and containerization practices.

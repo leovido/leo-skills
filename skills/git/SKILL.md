@@ -1,3 +1,9 @@
+---
+name: git
+description: Git workflow standards, commit conventions, hooks, and pull request practices. Use this when users need guidance on Conventional Commits, Git hooks with Lefthook, pull request templates, .gitignore configuration, or Git workflow best practices for team collaboration.
+license: MIT - Complete terms in LICENSE.txt
+---
+
 # Git Skills & Best Practices
 
 Git workflow standards, commit conventions, hooks, and pull request practices.
