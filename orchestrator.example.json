@@ -1,0 +1,317 @@
+{
+  "id": "leo-orchestrator",
+  "name": "Multi-Agent Development Orchestrator",
+  "version": "1.0.0",
+  "description": "Orchestrates multiple specialized AI agents for comprehensive code review and development assistance",
+  
+  "agents": {
+    "orchestrator": {
+      "role": "master",
+      "responsibilities": [
+        "Task decomposition",
+        "Agent coordination",
+        "Result aggregation",
+        "Conflict resolution"
+      ],
+      "skills": ["task-analysis", "agent-coordination"]
+    },
+    
+    "code_quality": {
+      "role": "specialist",
+      "skill": "leo-skills",
+      "responsibilities": [
+        "Linting compliance",
+        "Code formatting",
+        "TypeScript validation",
+        "Code style enforcement"
+      ],
+      "priority": 1,
+      "capabilities": [
+        "run_lint_checks",
+        "suggest_formatting",
+        "validate_typescript",
+        "identify_anti_patterns"
+      ]
+    },
+    
+    "architecture": {
+      "role": "specialist",
+      "skill": "leo-skills",
+      "focus": "project_structure",
+      "responsibilities": [
+        "Validate DDD structure",
+        "Review folder organization",
+        "Suggest architectural improvements",
+        "Framework pattern compliance"
+      ],
+      "priority": 2,
+      "capabilities": [
+        "validate_structure",
+        "suggest_organization",
+        "review_patterns",
+        "check_ddd_compliance"
+      ]
+    },
+    
+    "security": {
+      "role": "specialist",
+      "skill": "security-skills",
+      "responsibilities": [
+        "Vulnerability scanning",
+        "Security pattern review",
+        "Authentication/authorization checks",
+        "OWASP compliance"
+      ],
+      "priority": 1,
+      "capabilities": [
+        "scan_dependencies",
+        "review_auth_patterns",
+        "check_owasp_compliance",
+        "identify_vulnerabilities"
+      ]
+    },
+    
+    "testing": {
+      "role": "specialist",
+      "skill": "testing-skills",
+      "responsibilities": [
+        "Test coverage analysis",
+        "Test quality review",
+        "Missing test identification",
+        "Test pattern validation"
+      ],
+      "priority": 2,
+      "capabilities": [
+        "analyze_coverage",
+        "review_test_quality",
+        "suggest_tests",
+        "validate_test_patterns"
+      ]
+    },
+    
+    "performance": {
+      "role": "specialist",
+      "skill": "performance-skills",
+      "responsibilities": [
+        "Bundle size analysis",
+        "Performance bottleneck identification",
+        "Optimization suggestions",
+        "Core Web Vitals validation"
+      ],
+      "priority": 3,
+      "capabilities": [
+        "analyze_bundle",
+        "identify_bottlenecks",
+        "suggest_optimizations",
+        "validate_metrics"
+      ]
+    },
+    
+    "documentation": {
+      "role": "specialist",
+      "skill": "docs-skills",
+      "responsibilities": [
+        "Documentation completeness",
+        "JSDoc validation",
+        "README quality",
+        "API documentation review"
+      ],
+      "priority": 3,
+      "capabilities": [
+        "check_completeness",
+        "validate_jsdoc",
+        "review_readme",
+        "suggest_improvements"
+      ]
+    }
+  },
+  
+  "workflows": {
+    "code_review": {
+      "name": "Pull Request Code Review",
+      "description": "Comprehensive code review workflow",
+      "pattern": "sequential",
+      "steps": [
+        {
+          "agent": "code_quality",
+          "actions": ["lint", "format_check", "typecheck"]
+        },
+        {
+          "agent": "security",
+          "actions": ["vulnerability_scan", "auth_review"]
+        },
+        {
+          "agent": "testing",
+          "actions": ["coverage_check", "test_quality"]
+        },
+        {
+          "agent": "architecture",
+          "actions": ["structure_validation"]
+        },
+        {
+          "agent": "orchestrator",
+          "actions": ["aggregate_results", "generate_report"]
+        }
+      ]
+    },
+    
+    "project_setup": {
+      "name": "New Project Setup",
+      "description": "Initialize new project with best practices",
+      "pattern": "parallel",
+      "steps": [
+        {
+          "agent": "architecture",
+          "actions": ["create_structure", "setup_ddd"]
+        },
+        {
+          "agent": "code_quality",
+          "actions": ["setup_tooling", "configure_linting"]
+        },
+        {
+          "agent": "documentation",
+          "actions": ["create_readme", "setup_docs"]
+        }
+      ],
+      "finalize": {
+        "agent": "orchestrator",
+        "actions": ["validate_setup", "generate_summary"]
+      }
+    },
+    
+    "feature_development": {
+      "name": "Feature Development Assistance",
+      "description": "Assist with feature development end-to-end",
+      "pattern": "hierarchical",
+      "steps": [
+        {
+          "phase": "planning",
+          "agents": ["architecture", "orchestrator"],
+          "actions": ["design_structure", "plan_implementation"]
+        },
+        {
+          "phase": "implementation",
+          "agents": ["code_quality", "security", "testing"],
+          "pattern": "parallel",
+          "actions": [
+            "code_review",
+            "security_check",
+            "test_generation"
+          ]
+        },
+        {
+          "phase": "validation",
+          "agents": ["performance", "documentation", "orchestrator"],
+          "actions": [
+            "performance_check",
+            "docs_update",
+            "final_review"
+          ]
+        }
+      ]
+    },
+    
+    "migration": {
+      "name": "Migration Assistance",
+      "description": "Help migrate between tools or frameworks",
+      "pattern": "sequential",
+      "steps": [
+        {
+          "agent": "orchestrator",
+          "actions": ["analyze_current_state", "plan_migration"]
+        },
+        {
+          "agent": "code_quality",
+          "actions": ["migrate_configs", "update_tooling"]
+        },
+        {
+          "agent": "testing",
+          "actions": ["validate_migration", "update_tests"]
+        },
+        {
+          "agent": "orchestrator",
+          "actions": ["verify_completeness", "generate_report"]
+        }
+      ]
+    }
+  },
+  
+  "communication": {
+    "protocol": "json",
+    "message_format": {
+      "agent": "string",
+      "task": "string",
+      "status": "pending | in_progress | completed | failed",
+      "findings": "Finding[]",
+      "recommendations": "Recommendation[]",
+      "metadata": "object"
+    },
+    
+    "finding_format": {
+      "type": "error | warning | info",
+      "rule_id": "string",
+      "location": "string",
+      "message": "string",
+      "severity": "number",
+      "fix": "string | null",
+      "examples": {
+        "bad": "string",
+        "good": "string"
+      }
+    },
+    
+    "recommendation_format": {
+      "priority": "high | medium | low",
+      "action": "string",
+      "rationale": "string",
+      "estimated_effort": "string",
+      "impact": "string"
+    }
+  },
+  
+  "conflict_resolution": {
+    "strategy": "priority_based",
+    "rules": [
+      {
+        "condition": "security_finding && code_quality_finding",
+        "resolution": "security_takes_precedence"
+      },
+      {
+        "condition": "architecture_finding && code_quality_finding",
+        "resolution": "architecture_takes_precedence"
+      },
+      {
+        "condition": "equal_priority",
+        "resolution": "orchestrator_decides"
+      }
+    ]
+  },
+  
+  "result_aggregation": {
+    "format": "unified_report",
+    "sections": [
+      "summary",
+      "critical_issues",
+      "warnings",
+      "recommendations",
+      "compliance_score"
+    ],
+    "prioritization": {
+      "errors": 1,
+      "warnings": 2,
+      "info": 3,
+      "recommendations": 4
+    }
+  },
+  
+  "configuration": {
+    "parallel_execution": true,
+    "max_parallel_agents": 4,
+    "timeout_per_agent": 300,
+    "retry_failed_agents": true,
+    "max_retries": 2,
+    "cache_results": true,
+    "cache_ttl": 3600
+  }
+}
+

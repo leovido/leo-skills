@@ -1,0 +1,379 @@
+# Structured Skills Format Example
+# This demonstrates how SKILLS.md should be converted for AI agent consumption
+
+version: "1.0.0"
+last_updated: "2024-01-01"
+
+metadata:
+  name: "Development Skills & Best Practices"
+  description: "Comprehensive development standards for React and React Native projects"
+  author: "Christian Rayleo Vido"
+  tags: ["react", "react-native", "typescript", "best-practices"]
+
+# Decision trees for AI agents
+decision_trees:
+  package_manager:
+    question: "Which package manager should be used?"
+    default: "pnpm"
+    rules:
+      - condition: "project_type == 'monorepo'"
+        decision: "pnpm"
+        reason: "pnpm has excellent workspace support"
+      - condition: "team_preference == 'npm'"
+        decision: "npm"
+        reason: "Team preference takes precedence"
+        warning: "Consider migrating to pnpm for better performance"
+
+  linting_tool:
+    question: "Which linting tool should be used?"
+    default: "biome"
+    rules:
+      - condition: "existing_project && has_eslint"
+        decision: "migrate_to_biome"
+        migration_path: "docs/migrations/eslint-to-biome.md"
+      - condition: "new_project"
+        decision: "biome"
+        reason: "Biome is faster and includes formatting"
+
+# Structured rules with validation
+rules:
+  - id: "biome-required"
+    name: "Biome Linting Required"
+    category: "code_quality"
+    severity: "error"
+    priority: 1
+    applies_to: ["react", "react-native", "nextjs"]
+    
+    description: "All projects must use Biome for linting and formatting"
+    
+    validation:
+      type: "package_check"
+      check: "package.json has @biomejs/biome in devDependencies"
+      command: "pnpm list @biomejs/biome"
+      expected: "present"
+    
+    implementation:
+      install: "pnpm add -D @biomejs/biome"
+      config_file: "biome.json"
+      config_template: "templates/biome.json"
+    
+    examples:
+      correct:
+        code: |
+          {
+            "devDependencies": {
+              "@biomejs/biome": "^1.8.0"
+            }
+          }
+        explanation: "Biome is properly installed as a dev dependency"
+      
+      incorrect:
+        code: |
+          {
+            "devDependencies": {
+              "eslint": "^8.0.0"
+            }
+          }
+        explanation: "Using ESLint instead of Biome violates the standard"
+        fix: "Remove ESLint and install Biome"
+    
+    migration:
+      from: "eslint"
+      steps:
+        - "Remove ESLint dependencies"
+        - "Install Biome"
+        - "Convert ESLint config to Biome config"
+        - "Update package.json scripts"
+        - "Remove .eslintrc files"
+      guide: "docs/migrations/eslint-to-biome.md"
+
+  - id: "typescript-strict"
+    name: "TypeScript Strict Mode"
+    category: "code_quality"
+    severity: "error"
+    priority: 1
+    applies_to: ["all"]
+    
+    description: "TypeScript must use strict mode configuration"
+    
+    validation:
+      type: "config_check"
+      file: "tsconfig.json"
+      check: "compilerOptions.strict === true"
+      command: "jq '.compilerOptions.strict' tsconfig.json"
+      expected: "true"
+    
+    implementation:
+      config_file: "tsconfig.json"
+      required_settings:
+        strict: true
+        noImplicitAny: true
+        strictNullChecks: true
+        strictFunctionTypes: true
+        strictBindCallApply: true
+        strictPropertyInitialization: true
+        noImplicitThis: true
+        alwaysStrict: true
+    
+    examples:
+      correct:
+        code: |
+          {
+            "compilerOptions": {
+              "strict": true,
+              "noImplicitAny": true
+            }
+          }
+        explanation: "Strict mode is enabled"
+      
+      incorrect:
+        code: |
+          {
+            "compilerOptions": {
+              "strict": false
+            }
+          }
+        explanation: "Strict mode is disabled"
+        fix: "Set strict: true in tsconfig.json"
+
+  - id: "domain-driven-structure"
+    name: "Domain-Driven Design Structure"
+    category: "project_structure"
+    severity: "warning"
+    priority: 2
+    applies_to: ["react", "nextjs"]
+    
+    description: "Projects should use Domain-Driven Design folder structure"
+    
+    validation:
+      type: "directory_check"
+      check: "src/domains directory exists"
+      command: "test -d src/domains"
+      expected: "exists"
+    
+    implementation:
+      structure:
+        - "src/domains/{domain}/components"
+        - "src/domains/{domain}/hooks"
+        - "src/domains/{domain}/utils"
+        - "src/domains/{domain}/types"
+        - "src/domains/{domain}/__tests__"
+        - "src/shared/components"
+        - "src/shared/hooks"
+        - "src/shared/utils"
+        - "src/shared/types"
+    
+    examples:
+      correct:
+        structure: |
+          src/
+            domains/
+              auth/
+                components/
+                hooks/
+                utils/
+                types/
+                __tests__/
+              user/
+                components/
+                hooks/
+                utils/
+                types/
+                __tests__/
+            shared/
+              components/
+              hooks/
+              utils/
+              types/
+        explanation: "DDD structure is properly implemented"
+      
+      incorrect:
+        structure: |
+          src/
+            components/
+            hooks/
+            utils/
+        explanation: "Flat structure doesn't follow DDD principles"
+        fix: "Reorganize into domain-based structure"
+
+  - id: "conventional-commits"
+    name: "Conventional Commits"
+    category: "git_workflow"
+    severity: "error"
+    priority: 1
+    applies_to: ["all"]
+    
+    description: "All commits must follow Conventional Commits specification"
+    
+    validation:
+      type: "commit_message_check"
+      pattern: "^(feat|fix|docs|style|refactor|perf|test|chore)(\\(.+\\))?: .+"
+      command: "git log -1 --pretty=%B | grep -E '^(feat|fix|docs|style|refactor|perf|test|chore)'"
+      expected: "matches"
+    
+    implementation:
+      format: "<type>[optional scope]: <description>"
+      types:
+        - "feat: A new feature"
+        - "fix: A bug fix"
+        - "docs: Documentation only changes"
+        - "style: Code style changes (formatting, etc.)"
+        - "refactor: Code refactoring"
+        - "perf: Performance improvements"
+        - "test: Adding or updating tests"
+        - "chore: Maintenance tasks"
+    
+    examples:
+      correct:
+        - "feat(auth): add user login functionality"
+        - "fix(api): resolve race condition in data fetching"
+        - "docs: update README with setup instructions"
+      
+      incorrect:
+        - "Added login feature"
+        - "Fixed bug"
+        - "Update readme"
+      fix: "Use conventional commit format: type(scope): description"
+
+# Anti-patterns to avoid
+anti_patterns:
+  - id: "no-useeffect-for-derivation"
+    name: "Using useEffect for Derived State"
+    category: "react"
+    severity: "error"
+    description: "Don't use useEffect to calculate derived values"
+    
+    example_bad: |
+      const [count, setCount] = useState(0);
+      const [doubled, setDoubled] = useState(0);
+      
+      useEffect(() => {
+        setDoubled(count * 2);
+      }, [count]);
+    
+    example_good: |
+      const [count, setCount] = useState(0);
+      const doubled = count * 2; // Calculate during render
+    
+    reference: "https://react.dev/learn/you-might-not-need-an-effect"
+    
+    detection:
+      pattern: "useEffect.*setState.*derived"
+      rule: "biome-react/no-useeffect-derived-state"
+
+  - id: "no-any-type"
+    name: "Using 'any' Type"
+    category: "typescript"
+    severity: "warning"
+    description: "Avoid using 'any' type - use proper types or 'unknown'"
+    
+    example_bad: |
+      function processData(data: any) {
+        return data.value;
+      }
+    
+    example_good: |
+      interface Data {
+        value: string;
+      }
+      
+      function processData(data: Data) {
+        return data.value;
+      }
+    
+    detection:
+      rule: "typescript/no-explicit-any"
+      biome_rule: "suspicious/noExplicitAny"
+
+# Code generation templates
+templates:
+  component:
+    name: "React Component Template"
+    file: "templates/component.tsx"
+    variables:
+      - "componentName"
+      - "domain"
+      - "hasProps"
+    
+    content: |
+      import { type FC } from 'react';
+      
+      {#if hasProps}
+      interface {{componentName}}Props {
+        // Add props here
+      }
+      {/if}
+      
+      export const {{componentName}}: FC<{#if hasProps}{{componentName}}Props{/if}> = ({#if hasProps}props{/if}) => {
+        return (
+          <div>
+            {/* Component content */}
+          </div>
+        );
+      };
+
+  hook:
+    name: "Custom Hook Template"
+    file: "templates/hook.ts"
+    variables:
+      - "hookName"
+      - "domain"
+    
+    content: |
+      export function use{{hookName}}() {
+        // Hook implementation
+        return {};
+      }
+
+# Validation scripts
+validation:
+  pre_commit:
+    script: "scripts/validate-pre-commit.sh"
+    checks:
+      - "lint"
+      - "format"
+      - "typecheck"
+      - "test"
+  
+  pre_push:
+    script: "scripts/validate-pre-push.sh"
+    checks:
+      - "test:full"
+      - "typecheck"
+      - "build"
+  
+  ci:
+    script: "scripts/validate-ci.sh"
+    checks:
+      - "security"
+      - "lint"
+      - "test:ci"
+      - "typecheck"
+      - "build"
+
+# Compliance scoring
+compliance:
+  scoring:
+    method: "weighted"
+    weights:
+      code_quality: 0.3
+      project_structure: 0.2
+      git_workflow: 0.15
+      testing: 0.2
+      ci_cd: 0.15
+    
+    thresholds:
+      excellent: 90
+      good: 75
+      acceptable: 60
+      needs_improvement: 0
+  
+  report:
+    format: "json"
+    output: "compliance-report.json"
+    includes:
+      - "score"
+      - "violations"
+      - "recommendations"
+      - "missing_checks"
+
