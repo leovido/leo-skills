@@ -28,6 +28,15 @@ Core development standards, patterns, and best practices for React and React Nat
 - Run linting and formatting checks in CI/CD pipeline
 - Ensure consistent code style across the team
 - Format code automatically on save and before commit
+- **Install Biome immediately after creating a new React Native app**
+
+### Lefthook
+
+- **Use Lefthook** for Git hooks to enforce code quality
+- Configure Lefthook to run linting on pre-commit and pre-push
+- If linting fails, **fix all errors before committing** - quality is essential
+- Lefthook ensures code quality standards are maintained automatically
+- **Install Lefthook immediately after creating a new React Native app**
 
 ### TypeScript
 
@@ -166,6 +175,22 @@ Replace `my-app` with your desired project name. The tabs template includes:
 - `tabs` - Tab navigation with TypeScript (recommended)
 
 For more information, see the [Expo Documentation](https://docs.expo.dev/).
+
+### Initial Project Setup
+
+After creating a new React Native Expo app, **immediately install and configure**:
+
+1. **Biome** - For linting and code formatting
+2. **Lefthook** - For Git hooks to enforce code quality
+
+These tools should be set up before any significant development begins to ensure code quality from the start.
+
+### Git Commit Practices
+
+- **Commit often and logically** - Make small, focused commits that represent logical units of work
+- **Fix linting errors before committing** - Since Lefthook runs linting on pre-commit/pre-push hooks, all linting errors must be resolved before the commit can proceed
+- **Quality is essential** - Never bypass or skip linting checks. Fix errors until they are resolved
+- Each commit should be meaningful and pass all quality checks
 
 ---
 
