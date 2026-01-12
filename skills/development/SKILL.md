@@ -147,6 +147,26 @@ Follow React's official guidance: [You Might Not Need an Effect](https://react.d
 - Use Expo SDK for native module access
 - Follow Expo's best practices for app configuration
 
+### Creating a New Expo App with TypeScript
+
+To create a new React Native Expo app with TypeScript and the tabs template:
+
+```bash
+npx create-expo-app@latest my-app --template tabs
+```
+
+Replace `my-app` with your desired project name. The tabs template includes:
+- TypeScript configuration
+- Expo Router with tab navigation
+- Pre-configured navigation structure
+
+**Alternative templates:**
+- `blank-typescript` - Minimal TypeScript template
+- `blank` - Minimal JavaScript template
+- `tabs` - Tab navigation with TypeScript (recommended)
+
+For more information, see the [Expo Documentation](https://docs.expo.dev/).
+
 ---
 
 ## Additional Resources
@@ -165,4 +185,3 @@ Follow React's official guidance: [You Might Not Need an Effect](https://react.d
 - This document should be reviewed and updated regularly as best practices evolve
 - Team-specific additions and modifications are encouraged
 - When in doubt, refer to official documentation and community standards
-
