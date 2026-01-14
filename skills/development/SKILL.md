@@ -22,29 +22,21 @@ Core development standards, patterns, and best practices for React and React Nat
 
 ### Biome
 
-- **Use Biome** for both linting and code formatting
+- **MUST use Biome** (latest stable) for both linting and code formatting - this is a strict requirement
 - Configure Biome with project-specific rules
-- Use Biome's built-in formatter (no need for Prettier)
+- Use Biome's built-in formatter (no need for Prettier or ESLint)
 - Run linting and formatting checks in CI/CD pipeline
 - Ensure consistent code style across the team
-- Format code automatically on save and before commit
-- **Install Biome immediately after creating a new React Native app**
-
-### Lefthook
-
-- **Use Lefthook** for Git hooks to enforce code quality
-- Configure Lefthook to run linting on pre-commit and pre-push
-- If linting fails, **fix all errors before committing** - quality is essential
-- Lefthook ensures code quality standards are maintained automatically
-- **Install Lefthook immediately after creating a new React Native app**
+- **MUST format code with Biome before committing** - this is a strict requirement
+- **MUST run linting checks before committing** - this is a strict requirement
 
 ### TypeScript
 
-- **Always use TypeScript** - TypeScript is required for all projects
-- Configure strict TypeScript settings for maximum type safety
+- **MUST use TypeScript** (latest stable, 5.x) with strict mode enabled - this is a strict requirement
+- **PREFER** configuring strict TypeScript settings for maximum type safety (guideline)
 - Run `tsc` type checking in pre-push hooks
 - Include TypeScript checks in CI pipeline
-- Avoid using `any` type - use proper types or `unknown` when necessary
+- **MUST avoid using `any` type** - use proper types or `unknown` when necessary - this is a strict requirement
 
 ---
 
@@ -52,19 +44,19 @@ Core development standards, patterns, and best practices for React and React Nat
 
 ### Jest
 
-- **Use Jest** as the testing framework for all projects
+- **MUST use Jest** (latest stable) as the testing framework for all projects - this is a strict requirement
 - Write unit tests for all business logic and utilities
 - Write integration tests for critical user flows
 - Aim for meaningful test coverage (focus on quality over quantity)
-- Use React Testing Library for component testing
+- **PREFER** using React Testing Library for component testing (guideline)
 - Mock external dependencies and APIs appropriately
 - Keep tests fast, isolated, and maintainable
 
 ### Test Structure
 
-- Place test files next to the code they test (co-location)
+- **PREFER** placing test files next to the code they test (co-location) - this is a guideline
 - Use descriptive test names that explain what is being tested
-- Follow the Arrange-Act-Assert pattern
+- **PREFER** following the Arrange-Act-Assert pattern (guideline)
 - Use `describe` blocks to group related tests
 - Run tests in watch mode during development
 
@@ -74,7 +66,7 @@ Core development standards, patterns, and best practices for React and React Nat
 
 ### Domain-Driven Design
 
-- **Use Domain-Driven Design (DDD)** principles for project structure
+- **PREFER** using Domain-Driven Design (DDD) principles for project structure (guideline)
 - Organize code by domain/feature rather than by technical layer
 - Each domain should be self-contained with its own:
   - Components
@@ -121,16 +113,16 @@ src/
 
 ### useEffect Guidelines
 
-Follow React's official guidance: [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+**MUST follow React's official guidance**: [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect) - this is a strict requirement
 
-**Key Principles:**
+**Key Principles (Strict Requirements):**
 
-1. **Don't use Effects for data transformation**
+1. **MUST NOT use Effects for data transformation** - this is a strict requirement
    - Calculate derived values during rendering
    - Use `useMemo` for expensive calculations
    - Avoid redundant state variables
 
-2. **Don't use Effects for user events**
+2. **MUST NOT use Effects for user events** - this is a strict requirement
    - Handle user interactions in event handlers
    - Effects should only synchronize with external systems
 
@@ -140,7 +132,7 @@ Follow React's official guidance: [You Might Not Need an Effect](https://react.d
    - Subscribing to external stores
 
 4. **Best Practices:**
-   - Always include cleanup functions for subscriptions
+   - **MUST always include cleanup functions** for subscriptions - this is a strict requirement
    - Handle race conditions in data fetching
    - Extract data fetching logic into custom hooks
    - Prefer server components and React Server Actions when possible
@@ -151,7 +143,7 @@ Follow React's official guidance: [You Might Not Need an Effect](https://react.d
 
 ### Expo Framework
 
-- **Always use Expo** for React Native projects
+- **MUST use Expo SDK 54.x** for all React Native projects - this is a strict requirement
 - Leverage Expo's managed workflow for easier development
 - Use Expo SDK for native module access
 - Follow Expo's best practices for app configuration

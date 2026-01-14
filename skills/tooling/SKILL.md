@@ -20,12 +20,16 @@ Package management, project setup, and development tooling standards.
 
 ### pnpm
 
-- **Use pnpm** as the package manager for all projects
+- **MUST use pnpm** (version >= 10.0.0) as the package manager for all projects - this is a strict requirement
+- Never use npm or yarn
 - pnpm provides faster installs and better disk space efficiency
 - Use `pnpm install` instead of `npm install`
 - Use `pnpm add <package>` to add dependencies
 - Use `pnpm run <script>` to run scripts
 - Leverage pnpm's workspace feature for monorepos
+
+**Node.js Version Requirement:**
+- **MUST use Node.js 22.x LTS**
 
 **Benefits:**
 - Faster installation times
@@ -60,28 +64,31 @@ See `SETUP_SCRIPT.md` for detailed documentation.
 
 When starting a new project (or if not using the automated script):
 
-1. ✅ Initialize project with appropriate framework (Next.js, Expo, etc.)
-2. ✅ Set up TypeScript with strict configuration
-3. ✅ Configure Biome for linting and formatting
-4. ✅ Set up Jest for testing
-5. ✅ Organize project structure using Domain-Driven Design principles
-6. ✅ Initialize pnpm and configure package.json
-7. ✅ Configure Lefthook with pre-commit and pre-push hooks
+1. ✅ Initialize project with appropriate framework (Next.js, Expo SDK 54.x, etc.)
+2. ✅ Set up TypeScript (latest stable, 5.x) with strict configuration
+3. ✅ Configure Biome (latest stable) for linting and formatting
+4. ✅ Set up Jest (latest stable) for testing
+5. ✅ Organize project structure using Domain-Driven Design principles (guideline)
+6. ✅ Initialize pnpm (>= 10.0.0) and configure package.json
+7. ✅ Configure git hooks with pre-commit and pre-push hooks (strict requirements)
 8. ✅ Create `.gitignore` with standard exclusions
-9. ✅ Set up GitHub Actions workflow for PR checks
+9. ✅ Set up GitHub Actions workflow for PR checks (strict requirements)
 10. ✅ Configure SonarQube project (if applicable)
 11. ✅ Create PR template in `.github/pull_request_template.md`
 12. ✅ Set up Docker and Docker Compose
-13. ✅ Configure environment variables with dotenv (`.env.example`)
+13. ✅ Configure environment variables with dotenv (`.env.example`) (strict requirements)
 
 ---
 
 ## Environment Variables
 
-- **Use dotenv** for environment variable management
-- Always include `.env.example` with required variables (no secrets)
+**Strict Requirements:**
+
+- **MUST use dotenv** for environment variable management - this is a strict requirement
+- **MUST always include `.env.example`** with required variables (no secrets) - this is a strict requirement
+- **MUST NEVER commit `.env` files** to version control - this is a strict requirement
+- **MUST validate required environment variables** at application startup - this is a strict requirement
 - Document all environment variables in README
-- Never commit `.env` files
 - Use validation libraries (e.g., `zod`, `joi`) to ensure required variables are present
 - Load environment variables using `dotenv` at application startup
 - Use different `.env` files for different environments (`.env.development`, `.env.production`, etc.)

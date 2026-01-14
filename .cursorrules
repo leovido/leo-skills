@@ -1,0 +1,86 @@
+# Development Standards & Rules
+
+This file defines strict requirements and guidelines for all development work in this project.
+
+---
+
+## Version Requirements
+
+### Tool Versions (Locked)
+- **Node.js**: 22.x LTS
+- **pnpm**: >= 10.0.0
+- **Expo SDK**: 54.x
+- **Biome**: latest stable
+- **Jest**: latest stable
+- **TypeScript**: latest stable (5.x)
+
+### CI/CD Action Versions
+- `actions/checkout@v4`
+- `pnpm/action-setup@v2`
+- `actions/setup-node@v4`
+- **SonarQube**: latest stable
+
+---
+
+## 🔴 STRICT RULES (Must Follow)
+
+### Package Management
+- **MUST use pnpm** (version >= 10.0.0) - never use npm or yarn
+- **MUST use Biome** for both linting and formatting (not Prettier or ESLint)
+- **MUST use Jest** as the testing framework
+- **MUST use TypeScript** with strict mode enabled
+- **MUST use Expo SDK 54.x** for all React Native projects
+
+### Code Quality
+- **MUST avoid `any` type** - use proper types or `unknown` when necessary
+- **MUST format code with Biome** before committing
+- **MUST run linting checks** before committing
+
+### React Best Practices
+- **MUST follow React's "You Might Not Need an Effect"** guidance
+- **MUST NOT use Effects for data transformation** - calculate derived values during rendering
+- **MUST always include cleanup functions** in Effects that create subscriptions
+
+### Git Workflow
+- **MUST use Conventional Commits format**: `<type>[optional scope]: <description>`
+  - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
+- **MUST configure pre-commit hooks** to run: lint, format, test
+- **MUST configure pre-push hooks** to run: full test suite, typecheck
+
+### CI/CD
+- **MUST include these PR checks**: security audit, SonarQube analysis, unit tests, linting
+- **MUST ensure all CI checks pass** before merging PRs
+
+### Environment Variables
+- **MUST use dotenv** for environment variable management
+- **MUST NEVER commit `.env` files** to version control
+- **MUST include `.env.example`** file with required variables (no secrets)
+- **MUST validate required environment variables** at application startup
+
+### Testing
+- **MUST use Jest** for all projects
+
+---
+
+## 🟡 GUIDELINES (Preferred, but Flexible)
+
+### Code Quality
+- **PREFER** TypeScript strict mode configuration
+- **PREFER** organizing code using Domain-Driven Design principles (by domain/feature, not technical layer)
+- **PREFER** co-locating test files with source code
+
+### Git Workflow
+- **PREFER** using Lefthook for managing git hooks (other tools acceptable if they meet the strict hook requirements)
+
+### Testing
+- **PREFER** using React Testing Library for component testing
+- **PREFER** following the Arrange-Act-Assert pattern in tests
+
+---
+
+## Notes
+
+- Strict rules are non-negotiable and must be followed in all cases
+- Guidelines are preferred approaches but can be adapted based on project needs
+- When in doubt, refer to the detailed SKILL documentation in `skills/` directory
+- These rules should be reviewed and updated regularly as best practices evolve
